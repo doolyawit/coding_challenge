@@ -9,7 +9,7 @@
 
 ## Description
 
-Thank you for taking part in this coding challenge. For this challenge you will be given an unfinished React application, that you have to improve and enhance.
+Thank you for taking part in this coding challenge. For this challenge, you will be given an unfinished React application that you have to improve and enhance.
 
 ## Installation and running the application
 
@@ -25,16 +25,17 @@ API documentation : [Documentation](https://documenter.getpostman.com/view/48504
 
 ## Requirements
 
-1. Add card validation on Checkout form:
-2. Must be a valid card number
-3. Must be Visa / Master card type
-4. Must be valid expiration date
-5. Must be valid CVV
-6. Display the cart items on the checkout page
-7. Complete the API integration:
-8. Call the web service for payment submission
-9. Match the UI for Checkout item:
-10. Display the icon (Visa/Master) based on card number input
+1. Show the global counter on the items page
+2. Add card validation on the Checkout form:
+3. Must be a valid card number
+4. Must be Visa / Master card type
+5. Must be a valid expiration date
+6. Must be a valid CVV
+7. Display the cart items on the checkout page
+8. Complete the API integration:
+9. Call the web service for payment submission
+10. Match the UI for the Checkout item:
+11. Display the icon (Visa/Master) based on card number input
 
 ## Complete the Challenge
 
