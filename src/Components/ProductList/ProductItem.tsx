@@ -1,9 +1,9 @@
-import { Avatar, Box, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { Product } from '../../Types/Product'
-import IndeterminateCheckBoxOutlinedIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined'
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined'
 import theme from '../../theme'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { CartContext } from '../Contexts/CarProvider'
+import { Add, Remove } from '@mui/icons-material'
 
 interface ProductProps {
   product: Product
@@ -11,6 +11,13 @@ interface ProductProps {
 
 export default function ProductItem(props: ProductProps) {
   const [quantity, setQuantity] = useState<number>(0)
+  const cartContext = useContext(CartContext)
+
+  useEffect(() => {
+    quantity > 0
+      ? cartContext.updateCart(props.product, quantity)
+      : cartContext.removeFromCart(props.product.id)
+  }, [quantity])
 
   return (
     <Grid
@@ -28,44 +35,84 @@ export default function ProductItem(props: ProductProps) {
         },
       }}
     >
-      <Avatar
-        alt={props.product.name}
-        sx={{
-          backgroundColor: 'white',
-          border: '4px solid #6A52FF',
-          width: 61,
-          height: 61,
-        }}
-      />
-      <Typography variant='body2' fontWeight={800}>
+      <div className='avatar' />
+      <Typography
+        variant='body2'
+        fontWeight={700}
+        mt={0.5}
+        mb={0.75}
+        style={{ padding: '0px 3px', width: '100%', color: '#626262' }}
+        fontSize={14}
+      >
         {props.product.name}
       </Typography>
-
-      <Grid display='flex' flexDirection='row' gap={1}>
-        <Typography color='primary' variant='caption'>
+      <Grid display='flex' flexDirection='row' gap={0.375}>
+        <Typography color='primary' variant='caption' fontWeight={500}>
           {props.product.price}
         </Typography>
         <Typography color='primary' variant='caption'>
           {props.product.currency}
         </Typography>
       </Grid>
-
-      <Grid display='flex' flexDirection='row' gap={1}>
-        <Box
-          onClick={() => setQuantity((prevState) => prevState + 1)}
-          style={{ cursor: 'Pointer' }}
-        >
-          <AddBoxOutlinedIcon color='primary'></AddBoxOutlinedIcon>
-        </Box>
-        <Typography variant='body2'> {quantity}</Typography>
-        <Box
+      <Grid display='flex' flexDirection='row' gap={1.25}>
+        <div
           onClick={() => setQuantity((prevState) => Math.max(prevState - 1, 0))}
-          style={{ cursor: 'Pointer' }}
+          style={{
+            cursor: quantity === 0 ? 'not-allowed' : 'pointer',
+            border: '1px solid #e8e8eb',
+            borderRadius: '3px',
+            width: '16px',
+            height: '16px',
+          }}
         >
-          <IndeterminateCheckBoxOutlinedIcon color='primary'></IndeterminateCheckBoxOutlinedIcon>
-        </Box>
+          <Remove
+            color={quantity === 0 ? 'disabled' : 'primary'}
+            style={{
+              width: '16px',
+              height: '16px',
+            }}
+          />
+        </div>
+        <Typography
+          variant='body2'
+          color={'#6C6C6C'}
+          fontWeight={500}
+          style={{
+            height: '16px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {quantity}
+        </Typography>
+        <div
+          onClick={() => setQuantity((prevState) => prevState + 1)}
+          style={{
+            cursor: 'pointer',
+            border: '1px solid #e8e8eb',
+            borderRadius: '3px',
+            width: '16px',
+            height: '16px',
+          }}
+        >
+          <Add
+            color='primary'
+            style={{
+              width: '16px',
+              height: '16px',
+            }}
+          />
+        </div>
       </Grid>
-      <Typography color='text.secondary' variant='caption'>
+      <Typography
+        color='text.secondary'
+        variant='caption'
+        mt={0.375}
+        style={{
+          color: '#A7A7A7',
+        }}
+      >
         quantity
       </Typography>
     </Grid>

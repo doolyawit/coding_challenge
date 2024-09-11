@@ -3,6 +3,7 @@ export interface Product {
   name: string
   price: number
   currency: string
+  quantity: number
 }
 
 export interface ProductsResponse {
@@ -31,4 +32,20 @@ export interface Payment {
 export interface PaymentProduct {
   id: number
   quantity: number
+}
+
+export interface PaymentResponse {
+  requestId: string
+  result: {
+    errorCode: string
+    errorDesc: string
+  }
+  paymentInfo: {
+    email: string
+    cardInfo: {
+      cardNo: string
+      cardExpiryDate: string
+      cardCVV: string
+    }
+  }
 }
